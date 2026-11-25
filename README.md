@@ -34,25 +34,27 @@ Getting your own project running on a server usually means copying files, settin
 **Your own project (Python, Flask, FastAPI):**
 
 1. **Upload** your project folder: drag it from your computer onto the Files page.
-2. **Pick it** under Deployments → New deployment. QYRYX looks inside and suggests how to run it. For example, it recognises a Flask app with `app.py` and `requirements.txt`.
+2. **Pick it** under Applications → New app from a folder. QYRYX looks inside and suggests how to run it. For example, it recognises a Flask app with `app.py` and `requirements.txt`.
 3. **Confirm.** QYRYX copies it into a new numbered release, sets up its Python environment, starts it as a service that restarts on reboot, and checks that it answers.
 
-**To update:** upload the new version and click **Update**. If the new version doesn't start, QYRYX switches back to the previous one by itself. Your app's saved data is kept separately, so it carries over from one release to the next.
+**To update:** upload the new version, open the app in Applications and click **Deploy update**. If the new version doesn't start, QYRYX switches back to the previous one by itself. Your app's saved data is kept separately, so it carries over from one release to the next.
 
 **Ready-made apps: the Application Library.** Install popular self-hosted apps with one click. Each one is hand-picked and checked, and QYRYX shows the memory, storage and ports it needs before you install it.
 
-- **Media and files:** Jellyfin, Syncthing
-- **Productivity:** Paperless-ngx, Memos, Linkding
-- **Monitoring:** Uptime Kuma, ntfy
+- **Start here:** Docker, plus a step-by-step Tailscale setup guide. A brand-new server gets a "Start here" card that walks you through both.
+- **Media:** Jellyfin, Navidrome, Audiobookshelf
+- **Files:** Nextcloud, Syncthing
+- **Productivity:** Paperless-ngx, Stirling-PDF, Memos, Linkding, Excalidraw, FreshRSS
+- **Smart home and household:** Home Assistant, Mealie
+- **Monitoring:** Uptime Kuma, ntfy, changedetection.io
 - **Development and AI:** Gitea, Open WebUI
-- **Tools:** Node.js, git, FFmpeg, htop, tmux and more
-- **Guides:** step-by-step Tailscale setup
+- **Tools:** IT-Tools, Node.js, git, FFmpeg, htop, tmux and more
 
 Uninstalling removes the app completely. Its data is kept unless you choose to erase it, so a reinstall picks up where you left off.
 
 **Any other Docker app.** Paste a `docker-compose.yml` file or a `docker run` command. QYRYX converts it and checks it for risky settings, such as full administrator access or access to Docker itself. Then it installs the app and confirms it's running.
 
-**Docker updates with an undo.** Updating a container downloads the new version, keeps your settings and data, and checks that it keeps running. If the new version fails, the old one comes back automatically.
+**Docker updates with an undo.** Every 6 hours QYRYX checks whether a newer version of each app exists (it only asks; nothing is downloaded). When there is one, you get a notification and an **Update** button appears. Updating downloads the new version, keeps your settings and data, and checks that it keeps running. If the new version fails, the old one comes back automatically.
 
 ---
 
@@ -61,17 +63,18 @@ Uninstalling removes the app completely. Its data is kept unless you choose to e
 **Home and overview**
 - See the server's health at a glance: processor, memory, storage, temperature, and which apps are up.
 - A **System map** shows which apps can be reached, and from where: this server only, your home network, or your Tailscale devices.
-- A **search bar** finds any page, app, setting or help article, and can start common actions.
+- A big **search bar** (press `/` or Ctrl K) finds any page, app, container, file or help article. It also understands tasks in plain words, such as "restart jellyfin", "check docker updates" or "open the command line". Anything that changes the server still shows a plan first.
 
 **Applications**
 - See every app on the server in one list: services, Docker containers and Compose projects.
 - Start, stop or restart an app, and read its log.
 - Add apps you already have, or uninstall them cleanly. A backup copy is kept, so you can bring one back.
+- Deploy your own Python project from a folder, then update it or roll it back to an earlier version.
 
 **Docker**
 - Containers, images, volumes and networks, explained.
 - Run Docker Compose projects, with a risk check before anything starts.
-- Updates with automatic rollback, and cleanup that never deletes your data volumes.
+- Automatic checks for newer versions, updates with automatic rollback, and cleanup that never deletes your data volumes.
 
 **Files**
 - A file manager for your own folders, like Windows Explorer: upload, download, rename, move and delete.
@@ -98,11 +101,11 @@ Uninstalling removes the app completely. Its data is kept unless you choose to e
 - **Command line:** an optional terminal in the browser, off by default. Turning it on needs your QYRYX password, and the terminal itself asks for your Ubuntu sign-in. It switches off after you've been idle for a while.
 
 **History and help**
-- **Activity:** every action you approve is kept with its steps and result.
+- **Activity:** what changed since you last looked, and every action you approve with its steps and result.
 - **Help:** a searchable guide with step-by-step instructions for everything above.
 
 **Open it from anywhere: privately**
-- In a browser on your PC or phone, at home or away, through **Tailscale**. Only your own devices can connect, and nothing is put on the public internet.
+- In a browser on your PC, phone or tablet, at home or away, through **Tailscale**. The pages adapt to small screens. Only your own devices can connect, and nothing is put on the public internet.
 - On the server's own screen, if one is connected: QYRYX can run full-screen when the server starts.
 
 **Keeps itself up to date**
@@ -163,7 +166,7 @@ sudo ./enable-remote-link.sh
 
 ## Good to know
 
-- QYRYX is **new**. It has been used every day on a real home server running Ubuntu 26.04. Other Ubuntu versions and ARM boards are supported, but they have been tested less.
+- QYRYX is **new**. It has been used every day on a real home server running Ubuntu 26.04. Other Ubuntu versions are supported but have been tested less. The ARM version (for boards such as the Raspberry Pi) is built and checked, but hasn't been tried on real ARM hardware yet.
 - QYRYX **doesn't replace backups.** Turn on the optional backups, or use your own.
 - "Looks fine" in Guardian means nothing was found. It's not a guarantee of safety.
 - This repository contains the signed release files and the installer.
